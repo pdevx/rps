@@ -28,6 +28,9 @@ rpsController.controller('rpsController', function($scope, $http, $q, $filter, $
                 case "2":
                     vm.results = "You Lose: " + $filter('capitalize')(data.throwOption1) + " is beaten by " + $filter('capitalize')(data.throwOption2) + ".";
                     break;
+                case "conflict":
+                    vm.results = "There seems to be a problem with your throw options.";
+                    break;
             }
         }, function error(err) {
             console.log(err);
@@ -48,6 +51,9 @@ rpsController.controller('rpsController', function($scope, $http, $q, $filter, $
                     break;
                 case "2":
                     vm.results = "You Lose: " + $filter('capitalize')(data.throwOption1) + " is beaten by " + $filter('capitalize')(data.throwOption2) + ".";
+                    break;
+                case "conflict":
+                    vm.results = "There seems to be a problem with your throw options.";
                     break;
             }
         }, function error(err) {
