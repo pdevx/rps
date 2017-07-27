@@ -13,15 +13,9 @@ app.use(bodyParser.urlencoded({
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static(__dirname));
-
-app.use('/angular', express.static(__dirname + '/angular/app/.www/'));
+app.use(express.static(__dirname + '/angular/app/.www/'));
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: __dirname });
-});
-
-app.get('/angular', function (req, res) {
   res.sendFile('index.html', { root: __dirname + '/angular/app/.www/' });
 });
 

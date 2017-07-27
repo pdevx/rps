@@ -8,13 +8,17 @@ var browserSync = require('browser-sync').create();
 var csslint = require('gulp-csslint');
 var del = require('del');
 var inject = require('gulp-inject');
+var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
+var karma = require('karma').server;
+var open = require('gulp-open');
 var prettify = require('gulp-jsbeautifier');
 var pug = require('gulp-pug');
 var reload = browserSync.reload;
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
+var shell = require('gulp-shell');
 var sortJSON = require('gulp-json-sort').default;
 var source = require('vinyl-source-stream');
 var templateCache = require('gulp-angular-templatecache');
@@ -59,7 +63,7 @@ gulp.task('build', function(done) {
 gulp.task('serve', ['build'], function() {
     browserSync.init({
         server: './app/.www/',
-        port: 4000
+        port: 3000
     });
     gulp.watch('./app/components/**/*.js', ['watch:js']);
     gulp.watch('./app/components/**/*.pug', ['watch:pug']);
@@ -240,4 +244,57 @@ gulp.task('translations', function() {
             space: 2
         }))
         .pipe(gulp.dest('./translations/'));
+});
+
+gulp.task('test', function() {
+    runSequence('test:karma', 'test:protractor', 'test:copy');
+});
+
+// Run tests in development environment
+gulp.task('test:init', ['build'], function() {
+    runSequence('test:karma', 'test:protractor', 'test:copy', 'test:browser');
+});
+
+gulp.task('test:browser', function() {
+    return gulp.src(__filename)
+        .pipe(open({
+            uri: 'http://localhost:3000/reports/karma.html'
+        }))
+        .pipe(open({
+            uri: 'http://localhost:3000/reports/e2e/htmlReport.html'
+        }));
+});
+
+// Clean out the test results folder
+gulp.task('test:clean', function() {
+    return del([
+        './app/.www/reports/**/*'
+    ]);
+});
+
+// Copy test results into our development environment for viewing in the browser
+gulp.task('test:copy', ['test:clean'], function() {
+    return gulp.src(['./tests/www/reports/**/*'], {
+            base: './tests/www/reports'
+        })
+        .pipe(gulp.dest('./app/.www/reports'));
+});
+
+// Karma test runner
+gulp.task('test:karma', ['build:browserify'], function(done) {
+    karma.start({
+        configFile: __dirname + '/tests/www/karma/karma.conf.js',
+        singleRun: true
+    }, function() {
+        done();
+    });
+});
+
+// Protractor test runner
+gulp.task('test:protractor', function() {
+    return gulp.src('./app')
+        .pipe(shell(['protractor tests/www/protractor/protractor.conf.js'], {
+            cwd: './',
+            ignoreErrors: true
+        }));
 });

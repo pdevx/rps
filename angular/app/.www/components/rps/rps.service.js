@@ -6,27 +6,31 @@ rpsService.factory('rpsService', function($cookies, $q) {
     var throwOptions = [{
             name: "the rock",
             beats: ["rock", "paper", "scissors"],
-            img: "/angular/assets/images/the_rock.png"
+            img: "/assets/images/the_rock.png"
         },
         {
             name: "rock",
             beats: ["scissors"],
-            img: "/angular/assets/images/rock.png"
+            img: "/assets/images/rock.png"
         },
         {
             name: "paper",
             beats: ["rock"],
-            img: "/angular/assets/images/paper.png"
+            img: "/assets/images/paper.png"
         },
         {
             name: "scissors",
             beats: ["paper"],
-            img: "/angular/assets/images/scissors.png"
+            img: "/assets/images/scissors.png"
         }
     ];
 
     service.getThrowOptions = function() {
         return throwOptions;
+    };
+
+    service.setThrowOptions = function(newOptions) {
+        throwOptions = newOptions;
     };
 
     service.getScore = function() {
