@@ -2,6 +2,12 @@
 Rock Paper Scissors
 
 # eBay for Charity frontend developer test
+###### Getting Started
+Clone the repository and run 'npm install' at the root as well as inside the 'angular' folder to install dependencies.
+
+Then run 'npm start' to initiate a server at localhost:5000.
+
+Live example on Heroku at: https://pdevx-rps.herokuapp.com/angular/#!/rps
 
 ## User Story
 
