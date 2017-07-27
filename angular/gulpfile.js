@@ -259,10 +259,10 @@ gulp.task('test:browser', function() {
     return gulp.src(__filename)
         .pipe(open({
             uri: 'http://localhost:3000/reports/karma.html'
-        }))
-        .pipe(open({
-            uri: 'http://localhost:3000/reports/e2e/htmlReport.html'
         }));
+        // .pipe(open({
+        //     uri: 'http://localhost:3000/reports/e2e/htmlReport.html'
+        // }));
 });
 
 // Clean out the test results folder

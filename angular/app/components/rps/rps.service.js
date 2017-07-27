@@ -2,7 +2,11 @@ var rpsService = angular.module('rps.service', []);
 
 rpsService.factory('rpsService', function ($cookies, $q) {
     var service = {};
-
+    var score = {
+        wins: 0,
+        ties: 0,
+        losses: 0
+    };;
     var throwOptions = [
         {
             name: "the rock",
@@ -35,11 +39,11 @@ rpsService.factory('rpsService', function ($cookies, $q) {
     };
 
     service.getScore = function () {
-        return service.score;
+        return score;
     };
 
     service.resetGame = function () {
-        service.score = {
+        score = {
             wins: 0,
             ties: 0,
             losses: 0
@@ -61,15 +65,15 @@ rpsService.factory('rpsService', function ($cookies, $q) {
         switch (result) {
             case "tie":
                 deferred.resolve(gameData);
-                service.score.ties++;
+                score.ties++;
                 break;
             case "1":
                 deferred.resolve(gameData);
-                service.score.wins++;
+                score.wins++;
                 break;
             case "2":
                 deferred.resolve(gameData);
-                service.score.losses++;
+                score.losses++;
                 break;
             case "conflict":
                 deferred.resolve(gameData);
@@ -96,15 +100,15 @@ rpsService.factory('rpsService', function ($cookies, $q) {
         switch (result) {
             case "tie":
                 deferred.resolve(gameData);
-                service.score.ties++;
+                score.ties++;
                 break;
             case "1":
                 deferred.resolve(gameData);
-                service.score.wins++;
+                score.wins++;
                 break;
             case "2":
                 deferred.resolve(gameData);
-                service.score.losses++;
+                score.losses++;
                 break;
             case "conflict":
                 deferred.resolve(gameData);
