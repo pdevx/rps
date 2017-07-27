@@ -1,0 +1,31 @@
+<div layout="row" layout-align="center center" flex="100">
+    <div class="md-whiteframe-z2" flex-xs="100">
+        <md-content class="site-pad-left site-pad-right" flex="" layout="column">
+            <div layout="row" layout-wrap="" layout-align="center start">
+                <md-card ng-repeat="throwOption in vm.throwOptions" ng-click="vm.runPvCGame(throwOption)"><img class="site-image-width" src="{{ throwOption.img }}" width="150" height="150" title="{{ throwOption.name }}" alt="{{ throwOption.name }}" /></md-card>
+            </div>
+            <div layout-align="center center" layout="row" ng-show="vm.throwOption1 &amp;&amp; vm.throwOption2">
+                <h4>You chose: {{ vm.throwOption1 }}</h4>
+                <div flex=""></div>
+                <h4>Computer chose: {{ vm.throwOption2 }}</h4>
+            </div>
+            <div layout-align="center center" layout="row" layout-padding="">
+                <h2>{{ vm.results }}</h2>
+            </div>
+            <md-divider></md-divider>
+            <div class="site-pad-top" layout-align="center center" layout="row">
+                <div class="md-subhead">{{ "PLAYER_SCOREBOARD" | translate }}</div>
+            </div>
+            <div class="site-pad-bottom" layout="column" layout-gt-xs="row" flex="100">
+                <div ng-repeat="(scoreKey, scoreVal) in vm.score" flex="" layout="column" layout-align="center center">
+                    <div class="md-headline">{{ scoreKey | capitalize }}: {{ scoreVal }}</div>
+                </div>
+            </div>
+            <div class="site-pad-bottom" layout="column" layout-gt-xs="row">
+                <div flex=""></div>
+                <md-button class="md-primary md-raised" md-theme="buttons" ng-click="vm.runCvCGame()">{{ "AUTO_TURN" | translate }}</md-button>
+                <md-button class="md-accent md-raised" md-theme="buttons" ng-click="vm.resetGame()">{{ "RESET_SCOREBOARD" | translate }}</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>
